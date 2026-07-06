@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baby Shower · Abigail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF7F0;
+    --surface:#FFFFFF;
+    --ink:#3E362B;
+    --muted:#8B8172;
+    --sage:#93A382;
+    --sage-dark:#5F7052;
+    --rose:#D9A8A0;
+    --rose-dark:#B87E75;
+    --gold:#C7A34D;
+    --border:#E9E1D2;
+    --shadow: 0 8px 24px rgba(62,54,43,0.07);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Karla', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px 80px;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    text-align:center;
+    padding:64px 24px 48px;
+    overflow:hidden;
+  }
+  .hero-eyebrow{
+    font-family:'Karla',sans-serif;
+    font-size:13px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--sage-dark);
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .hero h1{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:clamp(48px,9vw,88px);
+    margin:0;
+    line-height:1;
+    color:var(--ink);
+  }
+  .hero h1 em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--rose-dark);
+  }
+  .ribbon{
+    width:220px;
+    height:auto;
+    margin:22px auto 6px;
+    display:block;
+  }
+  .hero p.sub{
+    max-width:520px;
+    margin:18px auto 0;
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.6;
+  }
+
+  /* STATS BAR */
+  .stats{
+    display:flex;
+    justify-content:center;
+    gap:36px;
+    margin:36px 0 8px;
+    flex-wrap:wrap;
+  }
+  .stat{text-align:center;}
+  .stat .num{font-family:'Fraunces',serif;font-size:32px;color:var(--sage-dark);font-weight:600;}
+  .stat .lbl{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+
+  /* TABS */
+  .tabs{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin:40px 0 28px;
+    flex-wrap:wrap;
+  }
+  .tab-btn{
+    font-family:'Karla',sans-serif;
+    font-weight:600;
+    font-size:14px;
+    padding:11px 22px;
+    border-radius:100px;
+    border:1.5px solid var(--border);
+    background:var(--surface);
+    color:var(--muted);
+    cursor:pointer;
+    transition:all .2s ease;
+  }
+  .tab-btn.active{
+    background:var(--sage-dark);
+    border-color:var(--sage-dark);
+    color:#fff;
+  }
+
+  /* CONTROLS */
+  .controls{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:32px;
+  }
+  .search-box{
+    flex:1;
+    max-width:340px;
+    position:relative;
+  }
+  .search-box input{
+    width:100%;
+    padding:12px 16px;
+    border-radius:12px;
+    border:1.5px solid var(--border);
+    font-family:'Karla',sans-serif;
+    font-size:15px;
+    background:var(--surface);
+    color:var(--ink);
+  }
+  .search-box input:focus{outline:2px solid var(--sage);border-color:var(--sage);}
+  .filter-select{
+    padding:12px 16px;
+    border-radius:12px;
+    border:1.5px solid var(--border);
+    background:var(--surface);
+    font-family:'Karla',sans-serif;
+    font-size:14px;
+    color:var(--ink);
+  }
+  .refresh-btn{
+    padding:12px 18px;
+    border-radius:12px;
+    border:1.5px solid var(--border);
+    background:var(--surface);
+    color:var(--sage-dark);
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .refresh-btn:hover{background:#F3EFE5;}
+
+  /* GRID */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:16px;
+  }
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .card.reserved{
+    background:#F7F4EC;
+  }
+  .card-id{
+    font-size:11px;
+    letter-spacing:1px;
+    color:var(--muted);
+    font-weight:700;
+  }
+  .card-title{
+    font-family:'Fraunces',serif;
+    font-size:20px;
+    font-weight:500;
+    color:var(--ink);
+    line-height:1.2;
+  }
+  .card-tags{display:flex;gap:6px;flex-wrap:wrap;}
+  .tag{
+    font-size:12px;
+    padding:4px 10px;
+    border-radius:100px;
+    background:#EFEBE0;
+    color:var(--sage-dark);
+    font-weight:600;
+  }
+  .tag.gold{background:#F3E9CE;color:#8A6B1F;}
+  .card-spacer{flex:1;}
+  .reserve-btn{
+    padding:10px 14px;
+    border-radius:10px;
+    border:none;
+    background:var(--rose-dark);
+    color:#fff;
+    font-weight:700;
+    font-size:14px;
+    cursor:pointer;
+    font-family:'Karla',sans-serif;
+    transition:background .15s ease;
+  }
+  .reserve-btn:hover{background:#A2685F;}
+  .reserved-note{
+    font-size:13.5px;
+    color:var(--sage-dark);
+    font-weight:600;
+    background:#EAEFE4;
+    padding:9px 12px;
+    border-radius:10px;
+    text-align:center;
+  }
+  .empty-state{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--muted);
+    font-family:'Fraunces',serif;
+    font-size:18px;
+  }
+
+  /* MODAL */
+  .modal-overlay{
+    position:fixed;inset:0;
+    background:rgba(62,54,43,0.45);
+    display:none;
+    align-items:center;justify-content:center;
+    z-index:50;
+    padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal{
+    background:var(--surface);
+    border-radius:18px;
+    padding:30px;
+    max-width:380px;
+    width:100%;
+    box-shadow:0 20px 50px rgba(0,0,0,0.2);
+  }
+  .modal h3{
+    font-family:'Fraunces',serif;
+    font-size:22px;
+    margin:0 0 4px;
+    font-weight:500;
+  }
+  .modal p.item-name{color:var(--rose-dark);font-weight:700;margin:0 0 18px;}
+  .modal input{
+    width:100%;
+    padding:12px 14px;
+    border-radius:10px;
+    border:1.5px solid var(--border);
+    font-family:'Karla',sans-serif;
+    font-size:15px;
+    margin-bottom:16px;
+  }
+  .modal input:focus{outline:2px solid var(--sage);border-color:var(--sage);}
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;}
+  .btn-cancel{
+    padding:10px 18px;border-radius:10px;border:1.5px solid var(--border);
+    background:var(--surface);color:var(--muted);font-weight:600;cursor:pointer;
+  }
+  .btn-confirm{
+    padding:10px 18px;border-radius:10px;border:none;
+    background:var(--sage-dark);color:#fff;font-weight:700;cursor:pointer;
+  }
+  .modal-error{color:var(--rose-dark);font-size:13px;margin:-10px 0 14px;display:none;}
+
+  .loading-msg{
+    text-align:center;padding:60px 20px;color:var(--muted);font-family:'Fraunces',serif;font-size:18px;
+  }
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    padding:30px 0 10px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="modal-overlay" id="modalOverlay">
+<div class="modal">
+<h3>¿Quién reserva este regalo?</h3>
+<p class="item-name" id="modalItemName"></p>
+<input type="text" id="modalNameInput" placeholder="Escribe tu nombre completo" maxlength="60">
+<p class="modal-error" id="modalError">Ese cupo ya fue reservado por alguien más. Se actualizó la lista.</p>
+<div class="modal-actions">
+<button class="btn-cancel" id="modalCancel">Cancelar</button>
+<button class="btn-confirm" id="modalConfirm">Confirmar reserva</button>
+</div>
+</div>
+</div>
+
+<div class="wrap">
+<div class="hero">
+<div class="hero-eyebrow">Nos vamos a conocer muy pronto</div>
+<h1>Baby Shower de <em>Abigail</em></h1>
+<svg class="ribbon" viewBox="0 0 220 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 20 C 40 2, 70 38, 110 20 C 150 2, 180 38, 215 20" stroke="#C7A34D" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 9"/>
+</svg>
+<p class="sub">Gracias por acompañarnos a celebrar la llegada de Abigail. Aquí encontrarás nuestra lista de regalos: elige el que quieras darle y déjanos tu nombre para reservarlo. Así evitamos que se repitan los regalos ✨</p>
+</div>
+
+<div class="stats" id="statsBar"></div>
+
+<div class="tabs">
+<button class="tab-btn active" data-tab="regalos">Lista de Regalos</button>
+<button class="tab-btn" data-tab="bonos">Bonos y Certificados</button>
+</div>
+
+<div class="controls">
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="Buscar un artículo...">
+</div>
+<select class="filter-select" id="filterSelect">
+<option value="todos">Todos</option>
+<option value="disponibles">Disponibles</option>
+<option value="reservados">Reservados</option>
+</select>
+<button class="refresh-btn" id="refreshBtn">↻ Actualizar</button>
+</div>
+
+<div id="gridContainer" class="grid">
+<div class="loading-msg">Cargando la lista de regalos...</div>
+</div>
+
+<footer>Hecho con cariño para el gran día de Abigail 🌙</footer>
+</div>
+
+<script>
+// ============================================================
+// CONFIGURACIÓN - Tu Google Apps Script URL
+// ============================================================
+const API_URL = 'https://script.google.com/macros/s/AKfycbzfjuFB3NAhwpmBaWo8vcZxfj0YQ5ieaN5jh8kFo1j3Tim91yi6IyHPkYunf7gsVrqYDA/exec';
+
+// ============================================================
+// ESTADO
+// ============================================================
+let regalos = [];
+let bonos = [];
+let currentTab = 'regalos';
+let pendingReserve = null;
+
+// ============================================================
+// CARGAR DATOS DESDE GOOGLE SHEETS
+// ============================================================
+async function loadData() {
+  try {
+    const response = await fetch(API_URL);
+    const data = await response.json();
+    regalos = data.regalos || [];
+    bonos = data.bonos || [];
+    renderStats();
+    renderGrid();
+  } catch (error) {
+    console.error('Error cargando datos:', error);
+    document.getElementById('gridContainer').innerHTML =
+      '<div class="loading-msg">Error al cargar. Verifica la conexión e intenta de nuevo.</div>';
+  }
+}
+
+// ============================================================
+// ESTADÍSTICAS
+// ============================================================
+function renderStats() {
+  const totalR = regalos.length;
+  const doneR = regalos.filter(r => r.reservadoPor).length;
+  const totalB = bonos.length;
+  const doneB = bonos.filter(b => b.reservadoPor).length;
+  document.getElementById('statsBar').innerHTML = `
+    <div class="stat"><div class="num">${doneR}/${totalR}</div><div class="lbl">Regalos reservados</div></div>
+    <div class="stat"><div class="num">${doneB}/${totalB}</div><div class="lbl">Bonos reservados</div></div>
+  `;
+}
+
+// ============================================================
+// FILTROS
+// ============================================================
+function matchesFilter(isReserved) {
+  const f = document.getElementById('filterSelect').value;
+  if (f === 'disponibles') return !isReserved;
+  if (f === 'reservados') return isReserved;
+  return true;
+}
+
+// ============================================================
+// RENDERIZAR GRID
+// ============================================================
+function renderGrid() {
+  const search = document.getElementById('searchInput').value.trim().toLowerCase();
+  const container = document.getElementById('gridContainer');
+  const list = currentTab === 'regalos' ? regalos : bonos;
+
+  let html = '';
+  let shown = 0;
+
+  list.forEach(item => {
+    const isReserved = !!item.reservadoPor;
+    if (search && !item.articulo.toLowerCase().includes(search)) return;
+    if (!matchesFilter(isReserved)) return;
+    shown++;
+
+    let tagsHtml = '';
+    if (currentTab === 'regalos') {
+      tagsHtml = (item.especificacion ? `<span class="tag">${item.especificacion}</span>` : '');
+    } else {
+      tagsHtml = `<span class="tag">${item.bono || ''}</span><span class="tag gold">${item.valor || ''}</span>`;
+    }
+
+    const actionHtml = isReserved
+      ? `<div class="reserved-note">🎀 Reservado por ${escapeHtml(item.reservadoPor)}</div>`
+      : `<button class="reserve-btn" data-id="${item.id}" data-articulo="${escapeAttr(item.articulo)}">Reservar este regalo</button>`;
+
+    html += `
+      <div class="card ${isReserved ? 'reserved' : ''}">
+        <div class="card-id">${item.id}</div>
+        <div class="card-title">${item.articulo}</div>
+        <div class="card-tags">${tagsHtml}</div>
+        <div class="card-spacer"></div>
+        ${actionHtml}
+      </div>
+    `;
+  });
+
+  if (shown === 0) {
+    html = '<div class="empty-state">No encontramos regalos con esa búsqueda 🌙</div>';
+  }
+
+  container.innerHTML = html;
+
+  container.querySelectorAll('.reserve-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      openModal(btn.dataset.id, btn.dataset.articulo);
+    });
+  });
+}
+
+// ============================================================
+// UTILIDADES
+// ============================================================
+function escapeHtml(str) {
+  const d = document.createElement('div');
+  d.innerText = str;
+  return d.innerHTML;
+}
+function escapeAttr(str) {
+  return str.replace(/"/g, '&quot;');
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function openModal(id, articulo) {
+  pendingReserve = { id, articulo };
+  document.getElementById('modalItemName').innerText = articulo + ' (' + id + ')';
+  document.getElementById('modalNameInput').value = '';
+  document.getElementById('modalError').style.display = 'none';
+  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('modalNameInput').focus();
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  pendingReserve = null;
+}
+
+// ============================================================
+// CONFIRMAR RESERVA (escribe en Google Sheets)
+// ============================================================
+async function confirmReserve() {
+  if (!pendingReserve) return;
+  const name = document.getElementById('modalNameInput').value.trim();
+  if (!name) {
+    document.getElementById('modalNameInput').focus();
+    return;
+  }
+
+  const confirmBtn = document.getElementById('modalConfirm');
+  confirmBtn.disabled = true;
+  confirmBtn.textContent = 'Reservando...';
+
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        id: pendingReserve.id,
+        nombre: name,
+        tab: currentTab
+      })
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      closeModal();
+      await loadData();
+    } else {
+      // Ya fue reservado por alguien más
+      document.getElementById('modalError').style.display = 'block';
+      await loadData();
+    }
+  } catch (error) {
+    console.error('Error al reservar:', error);
+    alert('Hubo un problema guardando tu reserva. Por favor intenta de nuevo.');
+  } finally {
+    confirmBtn.disabled = false;
+    confirmBtn.textContent = 'Confirmar reserva';
+  }
+}
+
+// ============================================================
+// EVENT LISTENERS
+// ============================================================
+document.getElementById('modalCancel').addEventListener('click', closeModal);
+document.getElementById('modalConfirm').addEventListener('click', confirmReserve);
+document.getElementById('modalOverlay').addEventListener('click', (e) => {
+  if (e.target.id === 'modalOverlay') closeModal();
+});
+document.getElementById('modalNameInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') confirmReserve();
+});
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentTab = btn.dataset.tab;
+    renderGrid();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input', renderGrid);
+document.getElementById('filterSelect').addEventListener('change', renderGrid);
+document.getElementById('refreshBtn').addEventListener('click', loadData);
+
+// ============================================================
+// INICIAR
+// ============================================================
+loadData();
+
+// Refresco automático cada 20 segundos
+setInterval(loadData, 20000);
+</script>
+</body>
+</html>
