@@ -319,8 +319,8 @@
 <div class="stats" id="statsBar"></div>
 
 <div class="tabs">
-<button class="tab-btn" data-tab="regalos">Lista de Regalos</button>
 <button class="tab-btn active" data-tab="bonos">Bonos y Certificados</button>
+<button class="tab-btn" data-tab="regalos">Lista de Regalos</button>
 </div>
 
 <div class="controls">
@@ -419,7 +419,7 @@ function renderGrid() {
     if (currentTab === 'regalos') {
       tagsHtml = (item.especificacion ? `<span class="tag">${item.especificacion}</span>` : '');
     } else {
-      tagsHtml = `<span class="tag">${item.bono || ''}</span><span class="tag gold">${item.valor || ''}</span>`;
+      tagsHtml = `<span class="tag">${item.bono || ''}</span><span class="tag gold">${formatMoney(item.valor)}</span>`;
     }
 
     const actionHtml = isReserved
@@ -456,6 +456,12 @@ function escapeHtml(str) {
   const d = document.createElement('div');
   d.innerText = str;
   return d.innerHTML;
+}
+function formatMoney(value) {
+  if (!value) return '';
+  const num = typeof value === 'number' ? value : parseInt(String(value).replace(/[^0-9]/g, ''));
+  if (isNaN(num)) return value;
+  return '$' + num.toLocaleString('es-CO');
 }
 function escapeAttr(str) {
   return str.replace(/"/g, '&quot;');
