@@ -495,16 +495,13 @@ async function confirmReserve() {
   confirmBtn.textContent = 'Reservando...';
 
   try {
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({
-        id: pendingReserve.id,
-        nombre: name,
-        tab: currentTab
-      })
+    const params = new URLSearchParams({
+      action: 'reserve',
+      id: pendingReserve.id,
+      nombre: name,
+      tab: currentTab
     });
-
+    const response = await fetch(API_URL + '?' + params.toString());
     const result = await response.json();
 
     if (result.success) {
