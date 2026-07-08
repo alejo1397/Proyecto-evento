@@ -395,8 +395,8 @@ function renderStats() {
   const totalB = bonos.length;
   const doneB = bonos.filter(b => b.reservadoPor).length;
   document.getElementById('statsBar').innerHTML = `
-    <div class="stat"><div class="num">${doneR}/${totalR}</div><div class="lbl">Regalos reservados</div></div>
     <div class="stat"><div class="num">${doneB}/${totalB}</div><div class="lbl">Bonos reservados</div></div>
+    <div class="stat"><div class="num">${doneR}/${totalR}</div><div class="lbl">Regalos reservados</div></div>
   `;
 }
 
